@@ -112,6 +112,11 @@
 
     /* ---------- hero ---------- */
     .hero { min-height: 100svh; position: relative; display: flex; align-items: flex-end; overflow: hidden; }
+    /* film grain — the texture that makes it feel shot, not rendered */
+    .grain {
+      position: fixed; inset: 0; z-index: 3000; pointer-events: none; opacity: .05;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
     .hero-bg {
       position: absolute; inset: 0;
       background:
@@ -138,7 +143,6 @@
       font-size: clamp(24px, 4.4vw, 52px); letter-spacing: .06em; text-transform: uppercase;
       margin-top: 18px; animation: riseIn 1s ease both .26s;
     }
-    .hero .tagline em { font-style: normal; color: var(--accent); }
     .hero .sub {
       margin-top: 14px; font-size: 13px; letter-spacing: .34em; text-transform: uppercase; color: #c9c5b9;
       animation: riseIn 1s ease both .38s;
@@ -200,16 +204,19 @@
     .episode h2 .arrow { display: block; color: var(--accent); font-size: .42em; margin: 6px 0; letter-spacing: 0; }
     .episode-dist {
       font-family: "Oswald", sans-serif; font-weight: 600; font-size: clamp(28px, 5vw, 56px);
-      letter-spacing: .1em; margin-top: 26px;
+      letter-spacing: .1em; margin-top: 26px; color: var(--text);
     }
-    .episode-dist span { color: var(--accent); }
     .episode-tag { margin-top: 14px; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: #c9c5b9; }
     .episode .stamp { margin-top: 34px; }
     .episode-actions { margin-top: 38px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
     /* ---------- route timeline ---------- */
     .route-wrap { margin-top: 64px; position: relative; max-width: 720px; }
-    .route-line { position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--accent), rgba(255,122,26,.08)); }
+    .route-line {
+      position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px;
+      background: linear-gradient(var(--accent), rgba(255,122,26,.08));
+      transform-origin: top center;
+    }
     .stop { position: relative; padding: 0 0 34px 52px; }
     .stop:last-child { padding-bottom: 0; }
     .stop::before {
@@ -227,16 +234,14 @@
       font-family: "Oswald", sans-serif; font-weight: 700; text-align: center;
       font-size: clamp(38px, 7vw, 84px); line-height: 1.02; letter-spacing: .03em; margin: 40px 0 60px;
     }
-    .film-mantra span { color: var(--accent); }
     .gear { display: grid; gap: 0; border-top: 1px solid var(--line); }
     .gear-row {
-      display: grid; grid-template-columns: 220px 1fr auto; gap: 28px; align-items: center;
+      display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: center;
       padding: 30px 6px; border-bottom: 1px solid var(--line);
     }
     .gear-row .g-name { font-family: "Oswald", sans-serif; font-size: 24px; font-weight: 600; letter-spacing: .03em; }
     .gear-row .g-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
-    .gear-row .g-role { font-size: 14.5px; color: #c9c5b9; max-width: 420px; }
-    .gear-row .g-num { font-family: "Oswald", sans-serif; color: var(--accent); font-size: 15px; letter-spacing: .2em; }
+    .gear-row .g-role { font-size: 14.5px; color: #c9c5b9; max-width: 520px; }
     .film-outro { text-align: center; margin-top: 56px; color: var(--muted); font-size: 15px; }
     .film-outro b { color: var(--text); }
 
@@ -300,7 +305,6 @@
       font-family: "Oswald", sans-serif; font-size: clamp(40px, 7vw, 88px);
       letter-spacing: .01em; line-height: 1; max-width: 920px; margin: 0 auto; font-weight: 700;
     }
-    .youtube-cta h2 span { color: var(--accent); }
     .youtube-cta p { color: var(--muted); max-width: 540px; margin: 24px auto 34px; font-size: 16.5px; }
 
     /* ---------- contact ---------- */
@@ -343,8 +347,9 @@
     .lightbox figcaption { text-align: center; color: var(--muted); font-size: 14px; margin-top: 14px; }
     .lightbox-close { position: absolute; top: 20px; right: 26px; background: none; color: #fff; border: 0; font-size: 38px; cursor: pointer; line-height: 1; }
 
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
-    .reveal.in { opacity: 1; transform: none; }
+    /* film fades in — it doesn't slide up. One slow dissolve per major block. */
+    .reveal { opacity: 0; transition: opacity 1.1s ease; }
+    .reveal.in { opacity: 1; }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -385,6 +390,7 @@
 </head>
 
 <body>
+  <div class="grain" aria-hidden="true"></div>
 
   <header class="nav" id="navbar">
     <div class="container nav-inner">
@@ -411,11 +417,11 @@
       <div class="container hero-content">
         <div class="hero-eyebrow">A motorcycle documentary series</div>
         <h1>MANAS<span>ON</span>ROADS</h1>
-        <div class="tagline">The road <em>is</em> the story.</div>
+        <div class="tagline">The road is the story.</div>
         <div class="sub">Cinematic motorcycle documentaries · Odisha · India</div>
         <div class="hero-actions">
-          <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary">Watch the journey →</a>
-          <a href="#episode" class="btn btn-ghost">Explore Episode 01 ↓</a>
+          <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary">Watch the journey</a>
+          <a href="#episode" class="btn btn-ghost">Explore Episode 01</a>
         </div>
       </div>
       <div class="scroll-hint">Scroll</div>
@@ -427,11 +433,11 @@
       <div class="container episode-inner">
         <span class="pill">Episode 01 · In production</span>
         <h2 class="reveal">NAYAGARH<span class="arrow">▼</span>BALANGIR</h2>
-        <div class="episode-dist reveal"><span>239</span> KM</div>
+        <div class="episode-dist reveal">239 KM</div>
         <div class="episode-tag reveal">A motorcycle documentary through western Odisha</div>
         <div class="reveal"><span class="stamp"><b>EP. 01</b> NAYAGARH → BALANGIR <b>·</b> 239 KM <b>·</b> ODISHA</span></div>
         <div class="episode-actions reveal">
-          <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary">Follow the film →</a>
+          <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary">Follow the film</a>
         </div>
       </div>
     </section>
@@ -462,23 +468,20 @@
       <div class="container">
         <div class="section-label">Solo filmmaking</div>
         <h2 class="section-title reveal">How the films get made.</h2>
-        <div class="film-mantra reveal">ONE RIDER.<br><span>ONE ROAD.</span><br>ONE STORY.</div>
+        <div class="film-mantra reveal">ONE RIDER.<br>ONE ROAD.<br>ONE STORY.</div>
         <div class="gear">
           <!-- EDIT: gear list. Update as the kit changes. -->
-          <div class="gear-row reveal">
+          <div class="gear-row">
             <div><div class="g-name">Sony ZV-E10</div><div class="g-sub">Tamron 20–40mm · Sigma 16mm</div></div>
             <div class="g-role">The cinematic camera — interviews, landscapes and the frames that carry the story.</div>
-            <div class="g-num">01</div>
           </div>
-          <div class="gear-row reveal">
+          <div class="gear-row">
             <div><div class="g-name">DJI Osmo Action 6</div><div class="g-sub">Action camera</div></div>
             <div class="g-role">Helmet and motorcycle POV — you ride every kilometre first-hand.</div>
-            <div class="g-num">02</div>
           </div>
-          <div class="gear-row reveal">
+          <div class="gear-row">
             <div><div class="g-name">DJI Mini 5 Pro</div><div class="g-sub">Drone</div></div>
             <div class="g-role">The aerial perspective — the road as the documentary sees it.</div>
-            <div class="g-num">03</div>
           </div>
         </div>
         <p class="film-outro reveal">No crew. No chase vehicle. Just the road — <b>cut into a MANASONROADS film.</b></p>
@@ -493,7 +496,7 @@
         <p class="section-intro reveal">Stops from Episode 01 — experienced visually, not listed like a directory.</p>
         <div class="places-grid">
           <!-- EDIT: place cards. Imagery first, information second. -->
-          <article class="place-card reveal">
+          <article class="place-card">
             <div class="p-img"><img src="assets/road.jpg" alt="Road through western Odisha" loading="lazy"></div>
             <div class="p-body">
               <div class="state">Odisha · Episode 01</div>
@@ -502,7 +505,7 @@
               <div class="ep-tag">Nayagarh → Balangir</div>
             </div>
           </article>
-          <article class="place-card reveal">
+          <article class="place-card">
             <div class="p-img"><img src="assets/peaks.jpg" alt="Distant ridges" loading="lazy"></div>
             <div class="p-body">
               <div class="state">Odisha · Episode 01</div>
@@ -511,7 +514,7 @@
               <div class="ep-tag">Nayagarh → Balangir</div>
             </div>
           </article>
-          <article class="place-card reveal">
+          <article class="place-card">
             <div class="p-img"><img src="assets/hero.jpg" alt="High road at dawn" loading="lazy"></div>
             <div class="p-body">
               <div class="state">Odisha · Episode 01</div>
@@ -533,21 +536,21 @@
         <div class="video-grid">
           <!-- PLACEHOLDER cards: replace with the real Episode 01 film + shorts on release.
                Do not invent titles, views or dates. -->
-          <article class="video-card reveal">
+          <article class="video-card">
             <div class="video-thumb"><span class="ph">Episode 01 — in production</span></div>
             <div class="video-info">
               <h3>Nayagarh → Balangir — the first film</h3>
               <div class="video-meta">Subscribe to get notified on release</div>
             </div>
           </article>
-          <article class="video-card reveal">
+          <article class="video-card">
             <div class="video-thumb"><span class="ph">More journeys — soon</span></div>
             <div class="video-info">
               <h3>Every journey gets its own film</h3>
               <div class="video-meta">One road at a time</div>
             </div>
           </article>
-          <article class="video-card reveal">
+          <article class="video-card">
             <div class="video-thumb"><span class="ph">Shorts — soon</span></div>
             <div class="video-info">
               <h3>Road moments, cut short</h3>
@@ -555,8 +558,8 @@
             </div>
           </article>
         </div>
-        <div class="cta-row reveal">
-          <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary">Visit YouTube Channel →</a>
+        <div class="cta-row">
+          <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary">Visit YouTube Channel</a>
         </div>
       </div>
     </section>
@@ -569,19 +572,19 @@
         <p class="section-intro reveal">Frames from the MANASONROADS world — documentary stills join them as the films release.</p>
         <div class="gallery-grid">
           <!-- Real photos. Add documentary frames here as episodes release. -->
-          <figure class="gallery-item reveal">
+          <figure class="gallery-item">
             <img src="assets/ig-manas-bike.jpg" alt="Manas with his motorcycle" loading="lazy" data-caption="With the machine">
             <figcaption>With the machine</figcaption>
           </figure>
-          <figure class="gallery-item reveal">
+          <figure class="gallery-item">
             <img src="assets/ig-manas-boat.jpg" alt="Manas on a boat trip" loading="lazy" data-caption="On the water">
             <figcaption>On the water</figcaption>
           </figure>
-          <figure class="gallery-item reveal">
+          <figure class="gallery-item">
             <img src="assets/ig-manas-1.jpg" alt="Manas portrait" loading="lazy" data-caption="Golden hour">
             <figcaption>Golden hour</figcaption>
           </figure>
-          <figure class="gallery-item reveal">
+          <figure class="gallery-item">
             <img src="assets/ig-manas-2.jpg" alt="Manas portrait" loading="lazy" data-caption="City lights">
             <figcaption>City lights</figcaption>
           </figure>
@@ -615,9 +618,9 @@
     <section class="youtube-cta">
       <div class="container">
         <div class="reveal"><span class="stamp"><b>EP. 01</b> NAYAGARH → BALANGIR <b>·</b> 239 KM <b>·</b> ODISHA</span></div>
-        <h2 class="reveal">The journey continues <span>on YouTube.</span></h2>
+        <h2 class="reveal">The journey continues on YouTube.</h2>
         <p class="reveal">Follow MANASONROADS — Episode 01 premieres on the channel.</p>
-        <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary reveal">Subscribe on YouTube →</a>
+        <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary reveal">Subscribe on YouTube</a>
       </div>
     </section>
 
@@ -759,11 +762,28 @@
       this.reset();
     });
 
-    /* ============ restrained reveal on scroll ============ */
+    /* ============ restrained reveal on scroll — slow dissolves only ============ */
     const io = new IntersectionObserver(entries => {
       entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
     }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
     document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+    /* ============ route line draws as the journey scrolls by ============ */
+    const routeWrap = document.querySelector(".route-wrap"),
+          routeLine = document.querySelector(".route-line"),
+          reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (routeWrap && routeLine && !reduceMotion) {
+      const drawRoute = () => {
+        const r = routeWrap.getBoundingClientRect(), vh = innerHeight;
+        const p = Math.min(1, Math.max(0, (vh * 0.75 - r.top) / (r.height + vh * 0.5)));
+        routeLine.style.transform = "scaleY(" + p.toFixed(3) + ")";
+      };
+      let ticking = false;
+      addEventListener("scroll", () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(() => { drawRoute(); ticking = false; }); }
+      }, { passive: true });
+      drawRoute();
+    }
   </script>
 </body>
 </html>
