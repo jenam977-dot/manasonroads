@@ -210,6 +210,42 @@
     .episode .stamp { margin-top: 34px; }
     .episode-actions { margin-top: 38px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 
+    /* ---------- upcoming journey ---------- */
+    .journey { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .journey-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+    .journey-pills .pill { margin-bottom: 0; }
+    .pill-ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .day-table { width: 100%; border-collapse: collapse; margin-top: 56px; border: 1px solid var(--line); background: var(--surface); }
+    .day-table th {
+      font-size: 11.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); font-weight: 600;
+      text-align: left; padding: 16px 20px; border-bottom: 1px solid var(--line); background: rgba(255,122,26,.05);
+    }
+    .day-table td { padding: 20px; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 14.5px; }
+    .day-table tr:last-child td { border-bottom: 0; }
+    .day-table .d-day { font-family: "Oswald", sans-serif; font-size: 20px; font-weight: 600; letter-spacing: .05em; white-space: nowrap; }
+    .day-table .d-route { color: #d8d4c8; }
+    .day-table .d-focus { color: var(--muted); }
+    .day-cards { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .day-card { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); transition: border-color .25s, transform .25s; }
+    .day-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .day-card .d-img { height: 200px; overflow: hidden; position: relative; }
+    .day-card .d-img img { height: 100%; }
+    .day-card .concept-tag {
+      position: absolute; left: 14px; bottom: 12px; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
+      color: #14100a; background: var(--accent); padding: 5px 12px; border-radius: 999px; font-weight: 700;
+    }
+    .day-card .d-body { padding: 24px 24px 26px; }
+    .day-card .d-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+    .day-card .d-num { font-family: "Oswald", sans-serif; font-size: 22px; font-weight: 700; letter-spacing: .06em; }
+    .day-card .d-num span { color: var(--accent); }
+    .day-card .d-dist { font-size: 12px; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; white-space: nowrap; }
+    .day-card .d-focus { font-size: 15.5px; font-weight: 600; color: var(--text); margin-bottom: 16px; }
+    .d-stats { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 16px; }
+    .d-stats .row { display: grid; grid-template-columns: 92px 1fr; gap: 12px; font-size: 13.5px; }
+    .d-stats .k { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
+    .d-stats .v { color: #d8d4c8; }
+    .journey-note { margin-top: 40px; color: var(--muted); font-size: 14px; border-left: 2px solid var(--accent); padding-left: 18px; max-width: 660px; }
+
     /* ---------- route timeline ---------- */
     .route-wrap { margin-top: 64px; position: relative; max-width: 720px; }
     .route-line {
@@ -368,7 +404,7 @@
       .nav-links.mobile-open a { padding: 10px 0; font-size: 16px; width: 100%; }
       .about-grid, .contact-grid { grid-template-columns: 1fr; }
       .about-grid { gap: 44px; }
-      .places-grid, .video-grid { grid-template-columns: 1fr 1fr; }
+      .places-grid, .video-grid, .day-cards { grid-template-columns: 1fr 1fr; }
       .gear-row { grid-template-columns: 1fr; gap: 8px; padding: 26px 6px; }
       .contact-grid { gap: 48px; }
     }
@@ -378,13 +414,19 @@
       .episode-inner { padding: 96px 0; }
       .hero-content { padding-bottom: 70px; }
       .scroll-hint { display: none; }
-      .places-grid, .video-grid { grid-template-columns: 1fr; }
+      .places-grid, .video-grid, .day-cards { grid-template-columns: 1fr; }
       .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 170px; }
       .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
       .btn { width: 100%; }
       .hero-actions .btn, .episode-actions .btn { width: auto; flex: 1; }
       .footer-top { flex-direction: column; }
       .route-wrap { max-width: 100%; }
+      .day-table thead { display: none; }
+      .day-table, .day-table tbody, .day-table tr, .day-table td { display: block; width: 100%; }
+      .day-table tr { border-bottom: 1px solid var(--line); }
+      .day-table td { border-bottom: 0; padding: 8px 20px; }
+      .day-table td:first-child { padding-top: 18px; }
+      .day-table td:last-child { padding-bottom: 18px; }
     }
   </style>
 </head>
@@ -401,6 +443,7 @@
         <ul class="nav-links" id="navLinks">
           <li><a href="#home">Home</a></li>
           <li><a href="#episode">Journeys</a></li>
+          <li><a href="#journey">Itinerary</a></li>
           <li><a href="#places">Places</a></li>
           <li><a href="#about">About</a></li>
         </ul>
@@ -442,12 +485,106 @@
       </div>
     </section>
 
+    <!-- ============ UPCOMING JOURNEY ============ -->
+    <section class="journey" id="journey">
+      <div class="container">
+        <div class="section-label">Upcoming journey</div>
+        <h2 class="section-title reveal">Three days. ~700 kilometres.</h2>
+        <p class="section-intro reveal">The planned itinerary for the first MANASONROADS journey across western Odisha. Planned — not yet ridden. Once it's done, this page becomes the film.</p>
+        <div class="journey-pills reveal">
+          <span class="pill">Upcoming</span>
+          <span class="pill pill-ghost">Planned journey</span>
+          <span class="pill pill-ghost">3 days</span>
+          <span class="pill pill-ghost">Nayagarh → Balangir</span>
+        </div>
+
+        <!-- EDIT: journey table. Source of truth = the rider's itinerary. -->
+        <table class="day-table reveal">
+          <thead><tr><th scope="col">Day</th><th scope="col">Route</th><th scope="col">Focus</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="d-day">DAY 1</td>
+              <td class="d-route">Nayagarh → Daspalla → Charichhak → Purunakatak → Baudhgarh → Sonepur → Tarbha → Balangir</td>
+              <td class="d-focus">Boudh Heritage &amp; Road Journey</td>
+            </tr>
+            <tr>
+              <td class="d-day">DAY 2</td>
+              <td class="d-route">Balangir → Patnagarh → Khaprakhol → Harishankar → Balangir</td>
+              <td class="d-focus">Gandhamardan &amp; Harishankar</td>
+            </tr>
+            <tr>
+              <td class="d-day">DAY 3</td>
+              <td class="d-route">Balangir → Ranipur Jharial → Sonepur → Boudh → Daspalla → Nayagarh</td>
+              <td class="d-focus">Ancient Heritage &amp; Return</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="day-cards">
+          <!-- EDIT: day cards. Times, stops and overnights come from the itinerary.
+               Swap the concept visuals for real documentary frames after the ride. -->
+          <article class="day-card reveal">
+            <div class="d-img">
+              <img src="assets/journey-day-1.jpg" alt="Concept visual — dawn highway through rural Odisha" loading="lazy">
+              <span class="concept-tag">Concept visual</span>
+            </div>
+            <div class="d-body">
+              <div class="d-head"><div class="d-num"><span>DAY 1</span></div><div class="d-dist">~239 km</div></div>
+              <div class="d-focus">Boudh Heritage &amp; Road Journey</div>
+              <div class="d-stats">
+                <div class="row"><span class="k">Route</span><span class="v">Nayagarh → Balangir via Daspalla, Charichhak, Purunakatak, Baudhgarh, Sonepur, Tarbha</span></div>
+                <div class="row"><span class="k">Departure</span><span class="v">07:00 AM</span></div>
+                <div class="row"><span class="k">Arrival</span><span class="v">~01:30 PM</span></div>
+                <div class="row"><span class="k">Stops</span><span class="v">Daspalla, Baudhgarh, Sonepur</span></div>
+                <div class="row"><span class="k">Overnight</span><span class="v">Balangir</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="day-card reveal">
+            <div class="d-img">
+              <img src="assets/journey-day-2.jpg" alt="Concept visual — misty foothills of the Gandhamardan hills" loading="lazy">
+              <span class="concept-tag">Concept visual</span>
+            </div>
+            <div class="d-body">
+              <div class="d-head"><div class="d-num"><span>DAY 2</span></div><div class="d-dist">~165 km round trip</div></div>
+              <div class="d-focus">Gandhamardan &amp; Harishankar</div>
+              <div class="d-stats">
+                <div class="row"><span class="k">Route</span><span class="v">Balangir → Patnagarh → Khaprakhol → Harishankar → Balangir</span></div>
+                <div class="row"><span class="k">Departure</span><span class="v">08:00 AM</span></div>
+                <div class="row"><span class="k">Return</span><span class="v">~05:30 PM</span></div>
+                <div class="row"><span class="k">Stops</span><span class="v">Patnagarh, Khaprakhol, Harishankar</span></div>
+                <div class="row"><span class="k">Overnight</span><span class="v">Balangir</span></div>
+              </div>
+            </div>
+          </article>
+          <article class="day-card reveal">
+            <div class="d-img">
+              <img src="assets/journey-day-3.jpg" alt="Concept visual — ancient temples at golden hour" loading="lazy">
+              <span class="concept-tag">Concept visual</span>
+            </div>
+            <div class="d-body">
+              <div class="d-head"><div class="d-num"><span>DAY 3</span></div><div class="d-dist">~280 km</div></div>
+              <div class="d-focus">Ancient Heritage &amp; Return</div>
+              <div class="d-stats">
+                <div class="row"><span class="k">Route</span><span class="v">Balangir → Ranipur Jharial → Sonepur → Boudh → Daspalla → Nayagarh</span></div>
+                <div class="row"><span class="k">Departure</span><span class="v">07:30 AM</span></div>
+                <div class="row"><span class="k">Arrival</span><span class="v">~06:30 PM</span></div>
+                <div class="row"><span class="k">Stops</span><span class="v">Ranipur Jharial, Sonepur / Boudh / Daspalla</span></div>
+                <div class="row"><span class="k">Destination</span><span class="v">Nayagarh</span></div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <p class="journey-note reveal">These are concept visuals for a journey that hasn't happened yet — real documentary frames will replace them after the ride.</p>
+      </div>
+    </section>
+
     <!-- ============ THE ROUTE ============ -->
     <section id="route">
       <div class="container">
         <div class="section-label">The route</div>
         <h2 class="section-title reveal">Eight stops. One story.</h2>
-        <p class="section-intro reveal">The full Episode 01 route — ride it with the film when it drops.</p>
+        <p class="section-intro reveal">Day 1 of the planned journey — ride it with the film when it drops.</p>
         <div class="route-wrap reveal">
           <div class="route-line"></div>
           <!-- EDIT: route stops. Keep order; update notes as the ride is filmed. -->
@@ -458,7 +595,7 @@
           <div class="stop"><h3>BAUDHGARH</h3><p>Riverside halt on the Mahanadi.</p></div>
           <div class="stop"><h3>SONEPUR</h3><p>Where the Mahanadi meets the Tel.</p></div>
           <div class="stop"><h3>TARBHA</h3><p>The final stretch west.</p></div>
-          <div class="stop last"><h3>BALANGIR</h3><p>239 KM complete.</p></div>
+          <div class="stop last"><h3>BALANGIR</h3><p>Planned Day 1 destination — 239 KM.</p></div>
         </div>
       </div>
     </section>
@@ -674,6 +811,7 @@
         </div>
         <nav class="footer-nav" aria-label="Footer">
           <a href="#episode">Journeys</a>
+          <a href="#journey">Itinerary</a>
           <a href="#places">Places</a>
           <a href="#film">How I Film</a>
           <a href="#gallery">Gallery</a>
