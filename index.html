@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+  ============================================================
+  MANASONROADS — SITE CONFIG
+  Edit the values below to update links across the whole site.
+  Leave a social URL empty ("") and it will be hidden automatically.
+  ============================================================
+  YOUTUBE_URL   = https://www.youtube.com/@ManasOnRoads
+  INSTAGRAM_URL = (not provided yet)
+  FACEBOOK_URL  = (not provided yet)
+  X_URL         = (not provided yet)
+  TELEGRAM_URL  = (not provided yet)
+  CONTACT_EMAIL = (not provided yet)
+  SITE_URL      = https://jenam977-dot.github.io/manasonroads/
+  ============================================================
+  CONTENT: journeys, places, journal and gallery items are marked
+  with EDIT comments in the body. Replace placeholder imagery
+  (assets/*.jpg) with real road photos when available.
+  ============================================================
+  -->
+
+  <title>MANASONROADS — Roads. Places. Experiences.</title>
+  <meta name="description" content="MANASONROADS — exploring roads, discovering places, and sharing the experiences along the way. A personal travel brand by Manas.">
+  <meta name="theme-color" content="#0b0d11">
+  <link rel="canonical" href="https://jenam977-dot.github.io/manasonroads/">
+
+  <meta property="og:title" content="MANASONROADS — Roads. Places. Experiences.">
+  <meta property="og:description" content="Exploring roads, discovering places, and sharing the experiences along the way.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://jenam977-dot.github.io/manasonroads/">
+  <meta property="og:image" content="https://jenam977-dot.github.io/manasonroads/assets/hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MANASONROADS — Roads. Places. Experiences.">
+  <meta name="twitter:description" content="Exploring roads, discovering places, and sharing the experiences along the way.">
+  <meta name="twitter:image" content="https://jenam977-dot.github.io/manasonroads/assets/hero.jpg">
+
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "MANASONROADS",
+    "alternateName": "ManasOnRoads",
+    "url": "https://jenam977-dot.github.io/manasonroads/",
+    "description": "Roads. Places. Experiences. A personal travel brand by Manas.",
+    "publisher": {
+      "@type": "Person",
+      "name": "Manas",
+      "sameAs": ["https://www.youtube.com/@ManasOnRoads"]
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #0b0d11;
+      --bg-soft: #10131a;
+      --surface: #151923;
+      --text: #f4f1e8;
+      --muted: #a3a097;
+      --line: rgba(244,241,232,.10);
+      --accent: #ff7a1a;
+      --accent-soft: rgba(255,122,26,.12);
+      --max: 1180px;
+      --radius: 14px;
+      --nav-height: 72px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      line-height: 1.65; overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { width: 100%; display: block; object-fit: cover; }
+    button { font: inherit; }
+    ::selection { background: var(--accent); color: #14100a; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+    .container { width: min(calc(100% - 40px), var(--max)); margin: auto; }
+
+    /* ---------- nav ---------- */
+    .nav {
+      position: fixed; inset: 0 0 auto; height: var(--nav-height); z-index: 1000;
+      border-bottom: 1px solid transparent; transition: background .3s ease, border-color .3s ease;
+    }
+    .nav.scrolled { background: rgba(11,13,17,.88); backdrop-filter: blur(14px); border-color: var(--line); }
+    .nav-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .logo { display: flex; align-items: center; gap: 11px; font-family: "Oswald", sans-serif; font-size: 19px; font-weight: 700; letter-spacing: .06em; }
+    .logo img { width: 36px; height: 36px; border-radius: 50%; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+    .nav-links a { color: #cfccc2; font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: #fff; }
+    .youtube-btn {
+      background: var(--text); color: #0b0d11; border-radius: 999px;
+      padding: 10px 20px; font-weight: 600; font-size: 13.5px; transition: transform .2s, background .2s;
+    }
+    .youtube-btn:hover { transform: translateY(-2px); background: var(--accent); }
+    .menu-btn { display: none; border: 0; background: none; color: #fff; font-size: 26px; cursor: pointer; line-height: 1; }
+
+    /* ---------- hero ---------- */
+    .hero { min-height: 100svh; position: relative; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(11,13,17,.30) 0%, rgba(11,13,17,.18) 38%, rgba(11,13,17,.94) 100%),
+        url("assets/hero.jpg") center / cover;
+      animation: heroDrift 22s ease-in-out infinite alternate;
+    }
+    @keyframes heroDrift { from { transform: scale(1.02); } to { transform: scale(1.09); } }
+    .hero-content { position: relative; z-index: 2; padding-bottom: 84px; width: 100%; }
+    .hero h1 {
+      font-family: "Oswald", sans-serif; font-weight: 700;
+      font-size: clamp(56px, 11vw, 148px); line-height: .92; letter-spacing: .01em;
+      animation: riseIn 1s ease both .1s;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero .sub {
+      font-family: "Oswald", sans-serif; font-size: clamp(19px, 3vw, 30px);
+      letter-spacing: .24em; text-transform: uppercase; color: #e8e4d8; margin-top: 16px;
+      animation: riseIn 1s ease both .28s;
+    }
+    .hero-description { max-width: 540px; color: #c9c5b9; margin-top: 22px; font-size: 16.5px; animation: riseIn 1s ease both .42s; }
+    .hero-actions { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; animation: riseIn 1s ease both .54s; }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 15px 28px; border-radius: 999px; font-size: 14.5px; font-weight: 600;
+      transition: transform .2s, background .2s, border-color .2s; border: 1px solid transparent; cursor: pointer;
+    }
+    .btn-primary { background: var(--text); color: #0b0d11; }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+    .btn-secondary { border-color: rgba(244,241,232,.28); color: var(--text); background: rgba(255,255,255,.05); }
+    .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+    .scroll-hint {
+      position: absolute; right: 34px; bottom: 30px; z-index: 2;
+      font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: #8f8c83;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .scroll-hint::after { content: ""; width: 1px; height: 44px; background: linear-gradient(var(--accent), transparent); animation: hintDrop 2.2s ease-in-out infinite; }
+    @keyframes hintDrop { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+
+    /* ---------- sections ---------- */
+    section { padding: 110px 0; }
+    .section-label { color: var(--accent); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .22em; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .section-label::before { content: ""; width: 30px; height: 2px; background: var(--accent); }
+    .section-title { font-family: "Oswald", sans-serif; font-weight: 600; font-size: clamp(36px, 5vw, 64px); letter-spacing: .01em; line-height: 1.04; max-width: 820px; }
+    .section-intro { max-width: 620px; color: var(--muted); margin-top: 20px; font-size: 16.5px; }
+
+    /* ---------- about ---------- */
+    .about { background: var(--bg-soft); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; margin-top: 8px; }
+    .about-copy { color: #c9c5b9; font-size: 17px; margin-top: 28px; max-width: 560px; }
+    .about-copy p + p { margin-top: 18px; }
+    .about-copy strong { color: var(--text); }
+    .about-image { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
+    .about-image img { aspect-ratio: 1 / 1; }
+    .about-image figcaption { padding: 14px 18px; font-size: 13px; color: var(--muted); background: var(--surface); }
+
+    /* ---------- explore ---------- */
+    .explore-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .explore-card { min-height: 400px; position: relative; border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--line); display: block; }
+    .explore-card img { height: 100%; position: absolute; inset: 0; transition: transform .8s cubic-bezier(.2,.6,.2,1); }
+    .explore-card:hover img { transform: scale(1.07); }
+    .explore-overlay {
+      position: absolute; inset: 0; padding: 26px; display: flex; flex-direction: column; justify-content: flex-end;
+      background: linear-gradient(transparent 30%, rgba(5,6,8,.88));
+    }
+    .explore-card h3 { font-family: "Oswald", sans-serif; font-size: 27px; font-weight: 600; letter-spacing: .02em; }
+    .explore-card p { color: #c9c5b9; font-size: 13.5px; margin-top: 6px; }
+    .explore-go { margin-top: 14px; font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: .08em; text-transform: uppercase; opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+    .explore-card:hover .explore-go { opacity: 1; transform: none; }
+
+    /* ---------- journeys ---------- */
+    .journeys { background: var(--bg-soft); }
+    .journey-card {
+      margin-top: 56px; display: grid; grid-template-columns: 1.15fr .85fr;
+      border-radius: var(--radius); overflow: hidden; background: var(--surface); border: 1px solid var(--line);
+    }
+    .journey-image { position: relative; overflow: hidden; min-height: 420px; }
+    .journey-image img { position: absolute; inset: 0; height: 100%; transition: transform .8s cubic-bezier(.2,.6,.2,1); }
+    .journey-card:hover .journey-image img { transform: scale(1.045); }
+    .journey-status {
+      position: absolute; top: 20px; left: 20px; z-index: 2;
+      background: var(--accent); color: #14100a; font-size: 11.5px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; padding: 8px 16px; border-radius: 999px;
+    }
+    .journey-info { padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
+    .journey-tag { color: var(--accent); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 18px; font-weight: 600; }
+    .journey-info h3 { font-family: "Oswald", sans-serif; font-size: clamp(34px, 4vw, 54px); line-height: 1.02; font-weight: 600; }
+    .journey-meta { display: flex; gap: 26px; margin-top: 24px; flex-wrap: wrap; }
+    .journey-meta div { font-size: 13px; color: var(--muted); }
+    .journey-meta b { display: block; font-family: "Oswald", sans-serif; font-size: 21px; color: var(--text); letter-spacing: .03em; }
+    .route { color: var(--muted); font-size: 14.5px; margin-top: 20px; line-height: 2; }
+    .route b { color: var(--text); font-weight: 600; }
+    .journey-info .btn { margin-top: 30px; align-self: flex-start; }
+
+    /* ---------- places ---------- */
+    .places-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .place-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 28px; transition: border-color .25s, transform .25s; }
+    .place-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .place-card .state { font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+    .place-card h3 { font-family: "Oswald", sans-serif; font-size: 25px; margin: 10px 0 8px; font-weight: 600; }
+    .place-card p { color: var(--muted); font-size: 14.5px; }
+    .place-card .best { margin-top: 16px; font-size: 13px; color: #c9c5b9; border-top: 1px solid var(--line); padding-top: 14px; }
+    .place-card .best b { color: var(--text); }
+
+    /* ---------- videos ---------- */
+    .video-grid { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .video-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .25s, border-color .25s; }
+    .video-card:hover { transform: translateY(-5px); border-color: var(--accent); }
+    .video-thumb { aspect-ratio: 16 / 9; position: relative; background: #1a1e27; overflow: hidden; display: grid; place-items: center; }
+    .video-thumb img { position: absolute; inset: 0; height: 100%; }
+    .video-thumb .ph { color: var(--muted); font-size: 13px; letter-spacing: .1em; text-transform: uppercase; padding: 0 24px; text-align: center; }
+    .video-info { padding: 20px 22px 24px; }
+    .video-info h3 { font-size: 16.5px; line-height: 1.4; font-weight: 600; }
+    .video-meta { color: var(--muted); font-size: 12.5px; margin-top: 8px; }
+    .cta-row { margin-top: 36px; }
+
+    /* ---------- gallery ---------- */
+    .gallery-grid { margin-top: 52px; display: grid; grid-template-columns: 1.25fr .85fr .9fr; grid-auto-rows: 240px; gap: 14px; }
+    .gallery-item { overflow: hidden; border-radius: 12px; cursor: zoom-in; position: relative; border: 1px solid var(--line); background: var(--surface); }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img { height: 100%; transition: transform .7s cubic-bezier(.2,.6,.2,1); }
+    .gallery-item:hover img { transform: scale(1.06); }
+    .gallery-item figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 18px 14px; font-size: 13px; color: #e8e4d8;
+      background: linear-gradient(transparent, rgba(5,6,8,.85)); opacity: 0; transition: opacity .3s;
+    }
+    .gallery-item:hover figcaption { opacity: 1; }
+
+    /* ---------- journal ---------- */
+    .journal { background: var(--bg-soft); }
+    .journal-grid { margin-top: 52px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .journal-card { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--surface); transition: transform .25s, border-color .25s; }
+    .journal-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .journal-card img { aspect-ratio: 16 / 10; }
+    .journal-body { padding: 24px 24px 28px; }
+    .journal-cat { color: var(--accent); font-size: 11.5px; text-transform: uppercase; letter-spacing: .16em; font-weight: 600; }
+    .journal-card h3 { font-family: "Oswald", sans-serif; font-size: 23px; line-height: 1.2; margin-top: 10px; font-weight: 600; }
+    .journal-card p { color: var(--muted); font-size: 14.5px; margin-top: 10px; }
+
+    /* ---------- youtube cta ---------- */
+    .youtube-cta { padding: 150px 0; text-align: center; background: radial-gradient(ellipse 60% 55% at 50% 45%, var(--accent-soft), transparent 70%), var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .youtube-cta h2 { font-family: "Oswald", sans-serif; font-size: clamp(40px, 7vw, 88px); letter-spacing: .01em; line-height: 1; max-width: 900px; margin: 0 auto; font-weight: 700; }
+    .youtube-cta h2 span { color: var(--accent); }
+    .youtube-cta p { color: var(--muted); max-width: 520px; margin: 24px auto 34px; font-size: 16.5px; }
+
+    /* ---------- contact ---------- */
+    .contact-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 80px; align-items: start; }
+    .contact-copy p { color: var(--muted); max-width: 440px; margin-top: 20px; font-size: 16px; }
+    .contact-points { margin-top: 28px; display: grid; gap: 12px; }
+    .contact-points div { display: flex; gap: 12px; align-items: center; font-size: 14.5px; color: #c9c5b9; }
+    .contact-points i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex: none; font-style: normal; }
+    .contact-form { display: grid; gap: 14px; }
+    .contact-form input, .contact-form textarea {
+      width: 100%; border: 1px solid var(--line); background: var(--surface); color: #fff;
+      border-radius: 10px; padding: 16px 18px; outline: none; font: inherit; transition: border-color .2s;
+    }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--accent); }
+    .contact-form textarea { min-height: 150px; resize: vertical; }
+    .contact-form .btn { justify-self: start; border: 0; }
+    .form-note { font-size: 13px; color: var(--muted); }
+
+    /* ---------- footer ---------- */
+    footer { border-top: 1px solid var(--line); padding: 56px 0 40px; background: var(--bg-soft); }
+    .footer-top { display: flex; justify-content: space-between; gap: 34px; align-items: flex-start; flex-wrap: wrap; }
+    .footer-brand .logo { margin-bottom: 10px; }
+    .footer-tagline { color: var(--muted); font-size: 14px; }
+    .footer-nav { display: flex; gap: 22px; flex-wrap: wrap; font-size: 14px; color: #c9c5b9; }
+    .footer-nav a:hover { color: var(--accent); }
+    .socials { display: flex; gap: 10px; margin-top: 18px; }
+    .socials a {
+      width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+      display: grid; place-items: center; transition: border-color .2s, background .2s, transform .2s;
+    }
+    .socials a:hover { border-color: var(--accent); background: var(--accent-soft); transform: translateY(-2px); }
+    .socials svg { width: 18px; height: 18px; fill: #e8e4d8; }
+    .copyright { color: #6d6a62; font-size: 12.5px; margin-top: 44px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+    /* ---------- lightbox ---------- */
+    .lightbox { position: fixed; inset: 0; z-index: 2000; background: rgba(4,5,7,.95); display: none; place-items: center; padding: 24px; }
+    .lightbox.active { display: grid; }
+    .lightbox figure { max-width: 1020px; width: 100%; }
+    .lightbox img { max-height: 80vh; object-fit: contain; border-radius: 8px; }
+    .lightbox figcaption { text-align: center; color: var(--muted); font-size: 14px; margin-top: 14px; }
+    .lightbox-close { position: absolute; top: 20px; right: 26px; background: none; color: #fff; border: 0; font-size: 38px; cursor: pointer; line-height: 1; }
+
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    @media (max-width: 960px) {
+      .nav-links, .nav .youtube-btn { display: none; }
+      .menu-btn { display: block; }
+      .nav-links.mobile-open {
+        display: flex; position: absolute; top: var(--nav-height); left: 16px; right: 16px;
+        background: rgba(13,16,22,.98); border: 1px solid var(--line); border-radius: 14px;
+        padding: 18px 22px; flex-direction: column; align-items: flex-start; gap: 4px;
+      }
+      .nav-links.mobile-open a { padding: 10px 0; font-size: 16px; width: 100%; }
+      .about-grid, .journey-card, .contact-grid { grid-template-columns: 1fr; }
+      .about-grid { gap: 44px; }
+      .explore-grid { grid-template-columns: repeat(2, 1fr); }
+      .places-grid, .video-grid, .journal-grid { grid-template-columns: 1fr 1fr; }
+      .journey-info { padding: 36px 30px; }
+      .journey-image { min-height: 300px; }
+      .contact-grid { gap: 48px; }
+    }
+    @media (max-width: 620px) {
+      .container { width: min(calc(100% - 32px), var(--max)); }
+      section { padding: 76px 0; }
+      .hero-content { padding-bottom: 70px; }
+      .scroll-hint { display: none; }
+      .explore-grid, .places-grid, .video-grid, .journal-grid { grid-template-columns: 1fr; }
+      .explore-card { min-height: 320px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 170px; }
+      .gallery-item:first-child { grid-column: span 2; grid-row: span 1; }
+      .btn { width: 100%; }
+      .hero-actions .btn { width: auto; flex: 1; }
+      .footer-top { flex-direction: column; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="nav" id="navbar">
+    <div class="container nav-inner">
+      <a href="#home" class="logo" aria-label="MANASONROADS home">
+        <img src="assets/logo.png" alt="MANASONROADS logo">MANAS<span>ON</span>ROADS
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#journeys">Journeys</a></li>
+          <li><a href="#places">Places</a></li>
+          <li><a href="#journal">Journal</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <a class="youtube-btn" data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener">Watch on YouTube</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <div class="hero-bg" role="img" aria-label="Dawn light over mountain ridges"></div>
+      <div class="container hero-content">
+        <h1>MANAS<span>ON</span>ROADS</h1>
+        <div class="sub">Roads. Places. Experiences.</div>
+        <p class="hero-description">Exploring roads, discovering places, and sharing the experiences along the way.</p>
+        <div class="hero-actions">
+          <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary">Watch on YouTube</a>
+          <a href="#journeys" class="btn btn-secondary">Explore Journeys</a>
+        </div>
+      </div>
+      <div class="scroll-hint">Scroll</div>
+    </section>
+
+    <!-- ============ ABOUT / THE JOURNEY ============ -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="section-label">About</div>
+        <h2 class="section-title reveal">The Journey</h2>
+        <div class="about-grid">
+          <div class="reveal">
+            <div class="about-copy">
+              <p><strong>MANASONROADS is a personal travel and exploration brand built around roads, places and real experiences.</strong></p>
+              <p>From familiar roads to places worth discovering, the goal is simple — explore more, experience more, and share the journey.</p>
+              <p>I'm Manas. MANASONROADS is my space to document the places I explore and the experiences I collect along the way.</p>
+            </div>
+          </div>
+          <figure class="about-image reveal">
+            <img src="assets/manas.jpg" alt="Manas on the road" loading="lazy">
+            <figcaption>Manas — the rider behind MANASONROADS.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPLORE ============ -->
+    <section id="explore">
+      <div class="container">
+        <div class="section-label">Explore</div>
+        <h2 class="section-title reveal">Find something worth discovering.</h2>
+        <p class="section-intro reveal">Four ways into the world of MANASONROADS — pick a lane and keep going.</p>
+        <div class="explore-grid">
+          <!-- EDIT: category cards. Swap images/text as sections grow. -->
+          <a href="#journeys" class="explore-card reveal">
+            <img src="assets/road.jpg" alt="An open road through the hills" loading="lazy">
+            <div class="explore-overlay">
+              <h3>Roads</h3>
+              <p>Long rides, highways, scenic routes and memorable stretches of road.</p>
+              <span class="explore-go">See journeys →</span>
+            </div>
+          </a>
+          <a href="#places" class="explore-card reveal">
+            <img src="assets/peaks.jpg" alt="Mountain ridges at dawn" loading="lazy">
+            <div class="explore-overlay">
+              <h3>Places</h3>
+              <p>Interesting destinations, hidden locations and places worth visiting.</p>
+              <span class="explore-go">See places →</span>
+            </div>
+          </a>
+          <a href="#journeys" class="explore-card reveal">
+            <img src="assets/hero.jpg" alt="High mountain road" loading="lazy">
+            <div class="explore-overlay">
+              <h3>Journeys</h3>
+              <p>Complete trips and travel experiences, start to finish.</p>
+              <span class="explore-go">See journeys →</span>
+            </div>
+          </a>
+          <a href="#journal" class="explore-card reveal">
+            <img src="assets/manas.jpg" alt="Manas travelling" loading="lazy">
+            <div class="explore-overlay">
+              <h3>Experiences</h3>
+              <p>Food, people, culture, unexpected moments and things discovered along the way.</p>
+              <span class="explore-go">Read journal →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JOURNEYS ============ -->
+    <section class="journeys" id="journeys">
+      <div class="container">
+        <div class="section-label">Journeys</div>
+        <h2 class="section-title reveal">One road at a time.</h2>
+        <p class="section-intro reveal">Complete trips with routes, distances and the stories collected between start and finish.</p>
+
+        <!-- EDIT: journey cards. Copy this block for each new journey. -->
+        <article class="journey-card reveal">
+          <div class="journey-image">
+            <span class="journey-status">In production</span>
+            <!-- PLACEHOLDER image: replace with a real photo from this journey -->
+            <img src="assets/road.jpg" alt="Open road — Nayagarh to Balangir journey" loading="lazy">
+          </div>
+          <div class="journey-info">
+            <div class="journey-tag">Odisha · India</div>
+            <h3>Nayagarh → Balangir</h3>
+            <div class="journey-meta">
+              <div><b>239 KM</b>Distance</div>
+              <div><b>5–5.5 hrs</b>Ride time</div>
+              <div><b>EP 01</b>Series</div>
+            </div>
+            <p class="route"><b>Route:</b> Nayagarh → Daspalla → Charichhak → Purunakatak → Baudhgarh → Sonepur → Tarbha → Balangir</p>
+            <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-secondary">Watch the film on YouTube</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ PLACES ============ -->
+    <section id="places">
+      <div class="container">
+        <div class="section-label">Destinations</div>
+        <h2 class="section-title reveal">Places worth discovering.</h2>
+        <p class="section-intro reveal">Stops and destinations from the journeys so far — more get added as the road grows.</p>
+        <div class="places-grid">
+          <!-- EDIT: place cards. Copy this block for each new destination. -->
+          <article class="place-card reveal">
+            <div class="state">Odisha</div>
+            <h3>Nayagarh</h3>
+            <p>Starting point of Episode 1 — where the first MANASONROADS journey begins.</p>
+            <div class="best"><b>Best time:</b> Oct – Feb<br><b>Journey:</b> Nayagarh → Balangir</div>
+          </article>
+          <article class="place-card reveal">
+            <div class="state">Odisha</div>
+            <h3>Daspalla</h3>
+            <p>Forest-fringe halt on the route, where the road starts climbing through green country.</p>
+            <div class="best"><b>Best time:</b> Oct – Feb<br><b>Journey:</b> Nayagarh → Balangir</div>
+          </article>
+          <article class="place-card reveal">
+            <div class="state">Odisha</div>
+            <h3>Baudh</h3>
+            <p>Riverside town on the Mahanadi — a natural mid-route break on the way west.</p>
+            <div class="best"><b>Best time:</b> Oct – Feb<br><b>Journey:</b> Nayagarh → Balangir</div>
+          </article>
+          <article class="place-card reveal">
+            <div class="state">Odisha</div>
+            <h3>Sonepur</h3>
+            <p>Heritage town near the meeting of the Mahanadi and Tel rivers.</p>
+            <div class="best"><b>Best time:</b> Oct – Feb<br><b>Journey:</b> Nayagarh → Balangir</div>
+          </article>
+          <article class="place-card reveal">
+            <div class="state">Odisha</div>
+            <h3>Balangir</h3>
+            <p>Destination — the western Odisha town where Episode 1 comes to an end.</p>
+            <div class="best"><b>Best time:</b> Oct – Feb<br><b>Journey:</b> Nayagarh → Balangir</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ YOUTUBE ============ -->
+    <section id="youtube" style="padding-top:0">
+      <div class="container">
+        <div class="section-label">YouTube</div>
+        <h2 class="section-title reveal">Latest from MANASONROADS.</h2>
+        <p class="section-intro reveal">New journeys, places and experiences land on the channel first.</p>
+        <div class="video-grid">
+          <!-- PLACEHOLDER cards: replace with real video embeds/data when videos are published.
+               Do not invent titles, views or dates. -->
+          <article class="video-card reveal">
+            <div class="video-thumb"><span class="ph">Episode 1 — in production</span></div>
+            <div class="video-info">
+              <h3>The first MANASONROADS film is on its way</h3>
+              <div class="video-meta">Subscribe to get notified on release</div>
+            </div>
+          </article>
+          <article class="video-card reveal">
+            <div class="video-thumb"><span class="ph">More journeys — soon</span></div>
+            <div class="video-info">
+              <h3>Every journey gets its own film</h3>
+              <div class="video-meta">One road at a time</div>
+            </div>
+          </article>
+          <article class="video-card reveal">
+            <div class="video-thumb"><span class="ph">Shorts — soon</span></div>
+            <div class="video-info">
+              <h3>Road moments, cut short</h3>
+              <div class="video-meta">For the days between episodes</div>
+            </div>
+          </article>
+        </div>
+        <div class="cta-row reveal">
+          <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary">Visit YouTube Channel</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section id="gallery" style="padding-top:0">
+      <div class="container">
+        <div class="section-label">Gallery</div>
+        <h2 class="section-title reveal">From the road.</h2>
+        <p class="section-intro reveal">Frames from the brand and the journeys — replaced with real ride photography as it comes in.</p>
+        <div class="gallery-grid">
+          <!-- PLACEHOLDER imagery (brand art). Replace src + captions with real photos. -->
+          <figure class="gallery-item reveal">
+            <img src="assets/hero.jpg" alt="Dawn over mountain ridges" loading="lazy" data-caption="Dawn over the ridges — brand art">
+            <figcaption>Dawn over the ridges — brand art</figcaption>
+          </figure>
+          <figure class="gallery-item reveal">
+            <img src="assets/road.jpg" alt="Open road through the hills" loading="lazy" data-caption="The open road — brand art">
+            <figcaption>The open road — brand art</figcaption>
+          </figure>
+          <figure class="gallery-item reveal">
+            <img src="assets/peaks.jpg" alt="Layered mountain peaks" loading="lazy" data-caption="Layered peaks — brand art">
+            <figcaption>Layered peaks — brand art</figcaption>
+          </figure>
+          <figure class="gallery-item reveal">
+            <img src="assets/manas.jpg" alt="Manas on the road" loading="lazy" data-caption="Manas — on the road">
+            <figcaption>Manas — on the road</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JOURNAL ============ -->
+    <section class="journal" id="journal">
+      <div class="container">
+        <div class="section-label">Travel Journal</div>
+        <h2 class="section-title reveal">Notes from the journey.</h2>
+        <p class="section-intro reveal">Road notes, places and experiences — written between rides.</p>
+        <div class="journal-grid">
+          <!-- EDIT: journal cards. Copy this block for each new article. -->
+          <article class="journal-card reveal">
+            <!-- PLACEHOLDER: add a cover image when the first article is written -->
+            <div class="journal-body">
+              <div class="journal-cat">Road Notes</div>
+              <h3>Why this journal exists</h3>
+              <p>Some things don't fit in a film — the wrong turns, the roadside conversations, the lessons. They'll live here.</p>
+            </div>
+          </article>
+          <article class="journal-card reveal">
+            <div class="journal-body">
+              <div class="journal-cat">Places</div>
+              <h3>Reading a place before you ride it</h3>
+              <p>How a little homework before a ride changes everything you notice on the road.</p>
+            </div>
+          </article>
+          <article class="journal-card reveal">
+            <div class="journal-body">
+              <div class="journal-cat">Experiences</div>
+              <h3>The best moments are unplanned</h3>
+              <p>No itinerary survives first contact with the road — and that's the point.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ YOUTUBE CTA ============ -->
+    <section class="youtube-cta">
+      <div class="container">
+        <div class="section-label" style="justify-content:center">Continue the journey</div>
+        <h2 class="reveal">The journey continues <span>on YouTube.</span></h2>
+        <p class="reveal">Follow MANASONROADS for new journeys, places and experiences.</p>
+        <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" class="btn btn-primary reveal">Subscribe on YouTube</a>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="container contact-grid">
+        <div class="contact-copy reveal">
+          <div class="section-label">Contact</div>
+          <h2 class="section-title">Get in touch.</h2>
+          <p>For business and collaboration enquiries:</p>
+          <div class="contact-points">
+            <div><i></i>Travel collaborations</div>
+            <div><i></i>Brand partnerships</div>
+            <div><i></i>Destination collaborations</div>
+            <div><i></i>Creator opportunities</div>
+          </div>
+        </div>
+        <form class="contact-form reveal" id="contactForm" novalidate>
+          <input type="text" name="name" placeholder="Your name" required autocomplete="name">
+          <input type="email" name="email" placeholder="Your email" required autocomplete="email">
+          <textarea name="message" placeholder="Your message" required></textarea>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+          <p class="form-note" id="formNote"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="logo"><img src="assets/logo.png" alt="MANASONROADS logo">MANAS<span>ON</span>ROADS</a>
+          <div class="footer-tagline">Roads. Places. Experiences.</div>
+          <div class="socials" id="socials">
+            <a data-social="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener" aria-label="YouTube">
+              <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.3 31.3 0 0 0 0 12a31.3 31.3 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.3 31.3 0 0 0 24 12a31.3 31.3 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+            </a>
+            <a data-social="instagram" href="" target="_blank" rel="noopener" aria-label="Instagram" hidden>
+              <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.9-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 3.6a6.2 6.2 0 1 0 0 12.4 6.2 6.2 0 0 0 0-12.4zm0 10.2a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.5a1.4 1.4 0 1 0 0 2.9 1.4 1.4 0 0 0 0-2.9z"/></svg>
+            </a>
+            <a data-social="facebook" href="" target="_blank" rel="noopener" aria-label="Facebook" hidden>
+              <svg viewBox="0 0 24 24"><path d="M24 12a12 12 0 1 0-13.9 11.9v-8.4h-3v-3.5h3V9.4c0-3 1.8-4.7 4.5-4.7 1.3 0 2.7.2 2.7.2v3h-1.5c-1.5 0-2 1-2 1.9V12h3.3l-.5 3.5h-2.8v8.4A12 12 0 0 0 24 12z"/></svg>
+            </a>
+            <a data-social="x" href="" target="_blank" rel="noopener" aria-label="X" hidden>
+              <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L1.2 2h6.4l4.4 5.9L18.9 2zm-1.1 18.1h1.7L7 3.8H5.2l12.6 16.3z"/></svg>
+            </a>
+            <a data-social="telegram" href="" target="_blank" rel="noopener" aria-label="Telegram" hidden>
+              <svg viewBox="0 0 24 24"><path d="M23.9 3.6L20.3 20c-.3 1.2-1 1.5-2 1L13 17.5l-2.6 2.5c-.3.3-.5.5-1.1.5l.4-5.6L19.9 6.9c.4-.4-.1-.6-.7-.2L7.1 14.1 1.6 12.4c-1.2-.4-1.2-1.2.2-1.8L22.8 2c1-.4 1.9.2 1.1 1.6z"/></svg>
+            </a>
+          </div>
+        </div>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="#journeys">Journeys</a>
+          <a href="#places">Places</a>
+          <a href="#journal">Journal</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+      <div class="copyright">
+        <span>© 2026 MANASONROADS. All rights reserved.</span>
+        <a data-link="youtube" href="https://www.youtube.com/@ManasOnRoads" target="_blank" rel="noopener">Watch on YouTube</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+    <figure><img id="lightboxImage" src="" alt=""><figcaption id="lightboxCaption"></figcaption></figure>
+  </div>
+
+  <script>
+    /* ============ SITE CONFIG — single place for all links ============ */
+    const SITE_CONFIG = {
+      youtube:   "https://www.youtube.com/@ManasOnRoads",
+      instagram: "",   // add URL to show the icon
+      facebook:  "",   // add URL to show the icon
+      x:         "",   // add URL to show the icon
+      telegram:  "",   // add URL to show the icon
+      email:     ""    // contact email — enables the form via the visitor's mail app
+    };
+
+    // Apply YouTube links everywhere
+    document.querySelectorAll('[data-link="youtube"]').forEach(a => { a.href = SITE_CONFIG.youtube; });
+
+    // Show only socials that have a real URL configured
+    document.querySelectorAll('[data-social]').forEach(a => {
+      const url = SITE_CONFIG[a.dataset.social];
+      if (url) { a.href = url; a.hidden = false; }
+      else { a.remove(); }
+    });
+
+    /* ============ nav ============ */
+    const navbar = document.getElementById("navbar");
+    addEventListener("scroll", () => navbar.classList.toggle("scrolled", scrollY > 40), { passive: true });
+
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+    menuBtn.addEventListener("click", () => {
+      const open = navLinks.classList.toggle("mobile-open");
+      menuBtn.textContent = open ? "×" : "☰";
+      menuBtn.setAttribute("aria-expanded", open);
+    });
+    navLinks.querySelectorAll("a").forEach(l => l.addEventListener("click", () => {
+      navLinks.classList.remove("mobile-open"); menuBtn.textContent = "☰"; menuBtn.setAttribute("aria-expanded", "false");
+    }));
+
+    /* ============ lightbox ============ */
+    const lightbox = document.getElementById("lightbox"),
+          lbImg = document.getElementById("lightboxImage"),
+          lbCap = document.getElementById("lightboxCaption");
+    document.querySelectorAll(".gallery-item img").forEach(img => {
+      img.addEventListener("click", () => {
+        lbImg.src = img.src; lbImg.alt = img.alt;
+        lbCap.textContent = img.dataset.caption || img.alt;
+        lightbox.classList.add("active"); document.body.style.overflow = "hidden";
+      });
+    });
+    const closeLb = () => { lightbox.classList.remove("active"); document.body.style.overflow = ""; };
+    document.getElementById("lightboxClose").addEventListener("click", closeLb);
+    lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLb(); });
+    addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
+
+    /* ============ contact form ============ */
+    const formNote = document.getElementById("formNote");
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = this.name.value.trim(), email = this.email.value.trim(), msg = this.message.value.trim();
+      if (!name || !email || !msg) { formNote.textContent = "Please fill in your name, email and message."; return; }
+      if (SITE_CONFIG.email) {
+        location.href = "mailto:" + SITE_CONFIG.email +
+          "?subject=" + encodeURIComponent("MANASONROADS enquiry from " + name) +
+          "&body=" + encodeURIComponent(msg + "\n\n— " + name + " (" + email + ")");
+        formNote.textContent = "Opening your mail app to send the message.";
+      } else {
+        formNote.textContent = "Thanks for reaching out — the contact email isn't connected yet, so please reach out via YouTube for now.";
+      }
+      this.reset();
+    });
+
+    /* ============ restrained reveal on scroll ============ */
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
+    }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+    document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jenam977-dot.github.io/manasonroads/sitemap.xml
