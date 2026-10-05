@@ -230,10 +230,6 @@
     .day-card:hover { border-color: var(--accent); transform: translateY(-4px); }
     .day-card .d-img { height: 200px; overflow: hidden; position: relative; }
     .day-card .d-img img { height: 100%; }
-    .day-card .concept-tag {
-      position: absolute; left: 14px; bottom: 12px; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase;
-      color: #14100a; background: var(--accent); padding: 5px 12px; border-radius: 999px; font-weight: 700;
-    }
     .day-card .d-body { padding: 24px 24px 26px; }
     .day-card .d-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
     .day-card .d-num { font-family: "Oswald", sans-serif; font-size: 22px; font-weight: 700; letter-spacing: .06em; }
@@ -244,7 +240,6 @@
     .d-stats .row { display: grid; grid-template-columns: 92px 1fr; gap: 12px; font-size: 13.5px; }
     .d-stats .k { font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); padding-top: 3px; }
     .d-stats .v { color: #d8d4c8; }
-    .journey-note { margin-top: 40px; color: var(--muted); font-size: 14px; border-left: 2px solid var(--accent); padding-left: 18px; max-width: 660px; }
     .day-cards.four { grid-template-columns: 1fr 1fr; }
     .place-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
     .place-chips span {
@@ -290,18 +285,28 @@
     .film { background: var(--bg-soft); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .film-mantra {
       font-family: "Oswald", sans-serif; font-weight: 700; text-align: center;
-      font-size: clamp(38px, 7vw, 84px); line-height: 1.02; letter-spacing: .03em; margin: 40px 0 60px;
+      font-size: clamp(38px, 7vw, 84px); line-height: 1.02; letter-spacing: .03em; margin: 40px 0 34px;
     }
-    .gear { display: grid; gap: 0; border-top: 1px solid var(--line); }
-    .gear-row {
-      display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: center;
-      padding: 30px 6px; border-bottom: 1px solid var(--line);
+    .film-kit {
+      text-align: center; color: var(--muted); font-size: 13px;
+      letter-spacing: .34em; text-transform: uppercase; margin-bottom: 10px;
     }
-    .gear-row .g-name { font-family: "Oswald", sans-serif; font-size: 24px; font-weight: 600; letter-spacing: .03em; }
-    .gear-row .g-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
-    .gear-row .g-role { font-size: 14.5px; color: #c9c5b9; max-width: 520px; }
-    .film-outro { text-align: center; margin-top: 56px; color: var(--muted); font-size: 15px; }
+    .film-outro { text-align: center; margin-top: 46px; color: var(--muted); font-size: 15px; }
     .film-outro b { color: var(--text); }
+
+    /* ---------- next journeys strip ---------- */
+    .next-strip { border-bottom: 1px solid var(--line); }
+    .next-grid { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .next-card {
+      display: block; border: 1px solid var(--line); border-radius: var(--radius);
+      background: var(--surface); padding: 30px 30px 28px;
+      transition: border-color .25s, transform .25s;
+    }
+    .next-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .next-card .next-no { font-family: "Oswald", sans-serif; font-size: 14px; font-weight: 600; letter-spacing: .24em; color: var(--accent); }
+    .next-card h3 { font-family: "Oswald", sans-serif; font-size: 30px; font-weight: 600; letter-spacing: .02em; margin: 10px 0 6px; }
+    .next-card p { color: var(--muted); font-size: 14.5px; margin: 0; }
+    .next-card .next-link { display: inline-block; margin-top: 16px; font-size: 12.5px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--text); border-bottom: 1px solid var(--accent); padding-bottom: 3px; }
 
     /* ---------- places ---------- */
     .places-grid { margin-top: 56px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -428,7 +433,7 @@
       .about-grid { gap: 44px; }
       .places-grid, .video-grid, .day-cards { grid-template-columns: 1fr 1fr; }
       .info-grid { grid-template-columns: 1fr; }
-      .gear-row { grid-template-columns: 1fr; gap: 8px; padding: 26px 6px; }
+      .next-grid { grid-template-columns: 1fr; }
       .contact-grid { gap: 48px; }
     }
     @media (max-width: 620px) {
@@ -515,8 +520,7 @@
         <h2 class="section-title reveal">Three days. ~700 kilometres.</h2>
         <p class="section-intro reveal">The planned itinerary for the first MANASONROADS journey across western Odisha. Planned — not yet ridden. Once it's done, this page becomes the film.</p>
         <div class="journey-pills reveal">
-          <span class="pill">Upcoming</span>
-          <span class="pill pill-ghost">Planned journey</span>
+          <span class="pill">Planned journey</span>
           <span class="pill pill-ghost">3 days</span>
           <span class="pill pill-ghost">Nayagarh → Balangir</span>
         </div>
@@ -549,15 +553,12 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey-day-1.jpg" alt="Concept visual — dawn highway through rural Odisha" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 1</span></div><div class="d-dist">~239 km</div></div>
               <div class="d-focus">Boudh Heritage &amp; Road Journey</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Nayagarh → Balangir via Daspalla, Charichhak, Purunakatak, Baudhgarh, Sonepur, Tarbha</span></div>
-                <div class="row"><span class="k">Departure</span><span class="v">07:00 AM</span></div>
-                <div class="row"><span class="k">Arrival</span><span class="v">~01:30 PM</span></div>
                 <div class="row"><span class="k">Stops</span><span class="v">Daspalla, Baudhgarh, Sonepur</span></div>
                 <div class="row"><span class="k">Overnight</span><span class="v">Balangir</span></div>
               </div>
@@ -566,15 +567,12 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey-day-2.jpg" alt="Concept visual — misty foothills of the Gandhamardan hills" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 2</span></div><div class="d-dist">~165 km round trip</div></div>
               <div class="d-focus">Gandhamardan &amp; Harishankar</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Balangir → Patnagarh → Khaprakhol → Harishankar → Balangir</span></div>
-                <div class="row"><span class="k">Departure</span><span class="v">08:00 AM</span></div>
-                <div class="row"><span class="k">Return</span><span class="v">~05:30 PM</span></div>
                 <div class="row"><span class="k">Stops</span><span class="v">Patnagarh, Khaprakhol, Harishankar</span></div>
                 <div class="row"><span class="k">Overnight</span><span class="v">Balangir</span></div>
               </div>
@@ -583,22 +581,40 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey-day-3.jpg" alt="Concept visual — ancient temples at golden hour" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 3</span></div><div class="d-dist">~280 km</div></div>
               <div class="d-focus">Ancient Heritage &amp; Return</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Balangir → Ranipur Jharial → Sonepur → Boudh → Daspalla → Nayagarh</span></div>
-                <div class="row"><span class="k">Departure</span><span class="v">07:30 AM</span></div>
-                <div class="row"><span class="k">Arrival</span><span class="v">~06:30 PM</span></div>
                 <div class="row"><span class="k">Stops</span><span class="v">Ranipur Jharial, Sonepur / Boudh / Daspalla</span></div>
                 <div class="row"><span class="k">Destination</span><span class="v">Nayagarh</span></div>
               </div>
             </div>
           </article>
         </div>
-        <p class="journey-note reveal">These are concept visuals for a journey that hasn't happened yet — real documentary frames will replace them after the ride.</p>
+      </div>
+    </section>
+
+    <!-- ============ NEXT JOURNEYS ============ -->
+    <section class="next-strip" id="next">
+      <div class="container">
+        <div class="section-label">Next journeys</div>
+        <h2 class="section-title reveal">Coming after Episode 01.</h2>
+        <div class="next-grid">
+          <a class="next-card reveal" href="#journey-2">
+            <div class="next-no">02</div>
+            <h3>Eastern Ghats</h3>
+            <p>Nayagarh → Koraput · 4 days · Deomali · Duduma</p>
+            <span class="next-link">View plan</span>
+          </a>
+          <a class="next-card reveal" href="#journey-3">
+            <div class="next-no">03</div>
+            <h3>Hirakud &amp; Mahanadi</h3>
+            <p>Nayagarh → Sambalpur · 3 days · Hirakud Dam · Huma</p>
+            <span class="next-link">View plan</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -609,7 +625,7 @@
         <h2 class="section-title reveal">Four days. The Eastern Ghats.</h2>
         <p class="section-intro reveal">The second planned MANASONROADS journey — Nayagarh to Koraput and back, over Deomali and through the Machkund gorge. Planned — not yet ridden.</p>
         <div class="journey-pills reveal">
-          <span class="pill">Upcoming</span>
+          <span class="pill">Planned journey</span>
           <span class="pill pill-ghost">4 days</span>
           <span class="pill pill-ghost">Royal Enfield Classic 350</span>
           <span class="pill pill-ghost">402 km one way</span>
@@ -652,15 +668,13 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey2-day-1.jpg" alt="Concept visual — winding forested ghat road at dawn" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 1</span></div><div class="d-dist">~285 km</div></div>
               <div class="d-focus">Eastern Ghats Ascent</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Nayagarh → Bhanjanagar → Asika → Mohana → Rayagada</span></div>
-                <div class="row"><span class="k">Kick-off</span><span class="v">06:30 AM · ~6.5–7 hrs riding</span></div>
-                <div class="row"><span class="k">Arrival</span><span class="v">~03:30 PM</span></div>
+                <div class="row"><span class="k">Riding</span><span class="v">~6.5–7 hrs</span></div>
                 <div class="row"><span class="k">Highlights</span><span class="v">Gajapati–Rayagada forested corridors · Mohana market break · Maa Majhighariani Temple</span></div>
                 <div class="row"><span class="k">Night stay</span><span class="v">Rayagada</span></div>
               </div>
@@ -669,15 +683,13 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey2-day-2.jpg" alt="Concept visual — motorcycle on a high mountain tableland ridge" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 2</span></div><div class="d-dist">~160 km</div></div>
               <div class="d-focus">Deomali &amp; Koraput</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Rayagada → Laxmipur → Semiliguda → Deomali → Koraput</span></div>
-                <div class="row"><span class="k">Kick-off</span><span class="v">07:30 AM · ~4.5 hrs riding</span></div>
-                <div class="row"><span class="k">Arrival</span><span class="v">~05:00 PM</span></div>
+                <div class="row"><span class="k">Riding</span><span class="v">4.5 hrs</span></div>
                 <div class="row"><span class="k">Highlights</span><span class="v">Deomali ridge &amp; tableland (1,672 m) · Kolab Reservoir evening</span></div>
                 <div class="row"><span class="k">Night stay</span><span class="v">Koraput</span></div>
               </div>
@@ -686,15 +698,13 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey2-day-3.jpg" alt="Concept visual — waterfall in a deep forested gorge" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 3</span></div><div class="d-dist">~140 km round trip</div></div>
               <div class="d-focus">Duduma &amp; Machkund</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Koraput → Duduma Waterfall → Machkund → Koraput</span></div>
-                <div class="row"><span class="k">Kick-off</span><span class="v">08:00 AM · ~4 hrs riding</span></div>
-                <div class="row"><span class="k">Arrival</span><span class="v">~05:30 PM</span></div>
+                <div class="row"><span class="k">Riding</span><span class="v">4 hrs</span></div>
                 <div class="row"><span class="k">Highlights</span><span class="v">Sabar Srikhetra · Tribal Museum · Duduma Waterfall · Machkund gorge</span></div>
                 <div class="row"><span class="k">Night stay</span><span class="v">Koraput</span></div>
               </div>
@@ -703,15 +713,13 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey2-day-4.jpg" alt="Concept visual — lone rider on a highway at golden hour" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 4</span></div><div class="d-dist">~402 km</div></div>
               <div class="d-focus">Return Ride</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Koraput → Rayagada → Asika → Bhanjanagar → Nayagarh</span></div>
-                <div class="row"><span class="k">Kick-off</span><span class="v">06:00 AM · ~9.5–10.5 hrs riding</span></div>
-                <div class="row"><span class="k">Arrival</span><span class="v">~06:00–06:30 PM</span></div>
+                <div class="row"><span class="k">Riding</span><span class="v">~9.5–10.5 hrs</span></div>
                 <div class="row"><span class="k">Highlights</span><span class="v">Rayagada bypass breakfast · Asika fuel &amp; lunch stop · Bhanjanagar hydration break</span></div>
                 <div class="row"><span class="k">Destination</span><span class="v">Nayagarh</span></div>
               </div>
@@ -719,8 +727,7 @@
           </article>
         </div>
 
-        <div class="info-grid">
-          <div class="info-card reveal">
+        <div class="info-card reveal" style="margin-top:18px">
             <h3>PLACES <span>TO VISIT</span></h3>
             <p class="sub">The stops that shape the route.</p>
             <div class="visit-item">
@@ -744,53 +751,6 @@
               <p>A possible detour — the plan keeps it optional to avoid excessive additional riding.</p>
             </div>
           </div>
-          <div class="info-card reveal">
-            <h3>STAY <span>PLAN</span></h3>
-            <p class="sub">Secure parking for the motorcycle is the one non-negotiable.</p>
-            <div class="visit-item">
-              <h4>Night 1 — Rayagada</h4>
-              <p>Preferred areas: New Bus Stand, Station Road.</p>
-            </div>
-            <div class="visit-item">
-              <h4>Nights 2 &amp; 3 — Koraput</h4>
-              <p>Preferred areas: Post Office Junction, Semiliguda.</p>
-            </div>
-            <div class="visit-item">
-              <h4>Requirement</h4>
-              <p>Secure accommodation with enclosed, safe motorcycle parking.</p>
-            </div>
-          </div>
-          <div class="info-card reveal">
-            <h3>RIDER <span>PREPARATION</span></h3>
-            <p class="sub">Checked before the kick-off.</p>
-            <ul class="check-list">
-              <li>Engine oil check</li>
-              <li>Clutch cable free-play check</li>
-              <li>Tyre inspection</li>
-              <li>Chain lubrication</li>
-              <li>Puncture kit</li>
-              <li>Portable 12V inflator</li>
-              <li>Spare tube</li>
-              <li>Valve key</li>
-              <li>Balanced luggage</li>
-              <li>Windproof riding jacket</li>
-              <li>Thermal base layer</li>
-              <li>Physical cash for areas where connectivity may drop</li>
-            </ul>
-          </div>
-          <div class="info-card reveal">
-            <h3>GHAT <span>RIDING</span></h3>
-            <p class="sub">The plan's rules for the Eastern Ghats.</p>
-            <ul class="check-list">
-              <li>Engine braking on descents</li>
-              <li>Lower gears on ghats</li>
-              <li>Horn at blind bends</li>
-              <li>Extra caution around trucks</li>
-              <li>No mountain riding after sunset</li>
-            </ul>
-          </div>
-        </div>
-        <p class="journey-note reveal">These are concept visuals for a journey that hasn't happened yet — real documentary frames will replace them after the ride. No costs are listed here by design.</p>
       </div>
     </section>
 
@@ -801,7 +761,7 @@
         <h2 class="section-title reveal">Three days. Hirakud &amp; the Mahanadi.</h2>
         <p class="section-intro reveal">The third planned MANASONROADS journey — Nayagarh to Sambalpur and back, along the Mahanadi to the Hirakud dam. Planned — not yet ridden.</p>
         <div class="journey-pills reveal">
-          <span class="pill">Upcoming</span>
+          <span class="pill">Planned journey</span>
           <span class="pill pill-ghost">3 days</span>
           <span class="pill pill-ghost">Royal Enfield Classic 350</span>
           <span class="pill pill-ghost">239 km one way</span>
@@ -839,14 +799,13 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey3-day-1.jpg" alt="Concept visual — highway past ancient temples and a river at dawn" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 1</span></div><div class="d-dist">~239 km</div></div>
               <div class="d-focus">Nayagarh → Sambalpur</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Nayagarh → Daspalla → Charichhak → Baudhgarh → Rairakhol/Redhakhol → Jujomura → Sambalpur</span></div>
-                <div class="row"><span class="k">Kick-off</span><span class="v">07:00 AM · ~5.5 hrs riding</span></div>
+                <div class="row"><span class="k">Riding</span><span class="v">5.5 hrs</span></div>
                 <div class="row"><span class="k">Highlights</span><span class="v">Daspalla breakfast · Baudhgarh &amp; Boudh star-shaped temples · Redhakhol break · Maa Samaleswari Temple · Mahanadi riverfront</span></div>
                 <div class="row"><span class="k">Night stay</span><span class="v">Sambalpur</span></div>
               </div>
@@ -855,14 +814,13 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey3-day-2.jpg" alt="Concept visual — motorcycle overlooking a massive dam and reservoir" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 2</span></div><div class="d-dist">~85 km</div></div>
               <div class="d-focus">Hirakud &amp; Huma Circuit</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Sambalpur → Burla → Hirakud → Huma → Sambalpur</span></div>
-                <div class="row"><span class="k">Kick-off</span><span class="v">08:30 AM · ~2.5 hrs riding</span></div>
+                <div class="row"><span class="k">Riding</span><span class="v">2.5 hrs</span></div>
                 <div class="row"><span class="k">Highlights</span><span class="v">Hirakud Dam · Gandhi Minar · Jawahar Minar · reservoir dyke · Huma village · Leaning Temple of Huma</span></div>
                 <div class="row"><span class="k">Night stay</span><span class="v">Sambalpur</span></div>
               </div>
@@ -871,15 +829,13 @@
           <article class="day-card reveal">
             <div class="d-img">
               <img src="assets/journey3-day-3.jpg" alt="Concept visual — rider on a rural highway heading home" loading="lazy">
-              <span class="concept-tag">Concept visual</span>
             </div>
             <div class="d-body">
               <div class="d-head"><div class="d-num"><span>DAY 3</span></div><div class="d-dist">~239 km</div></div>
               <div class="d-focus">Sambalpur → Nayagarh</div>
               <div class="d-stats">
                 <div class="row"><span class="k">Route</span><span class="v">Sambalpur → Redhakhol → Purunakatak / Charichhak → Boudh → Daspalla → Nayagarh</span></div>
-                <div class="row"><span class="k">Kick-off</span><span class="v">07:30 AM · ~5.5 hrs riding</span></div>
-                <div class="row"><span class="k">Arrival</span><span class="v">~02:30–03:00 PM</span></div>
+                <div class="row"><span class="k">Riding</span><span class="v">5.5 hrs</span></div>
                 <div class="row"><span class="k">Highlights</span><span class="v">Redhakhol breakfast · Purunakatak / Charichhak lunch · return through Boudh and Daspalla</span></div>
                 <div class="row"><span class="k">Destination</span><span class="v">Nayagarh</span></div>
               </div>
@@ -909,7 +865,6 @@
             <h4>Budharaja Temple &amp; Hilltop Park<span class="opt">Optional</span></h4>
           </div>
         </div>
-        <p class="journey-note reveal">These are concept visuals for a journey that hasn't happened yet — real documentary frames will replace them after the ride. No costs are listed here by design.</p>
       </div>
     </section>
 
@@ -940,21 +895,8 @@
         <div class="section-label">Solo filmmaking</div>
         <h2 class="section-title reveal">How the films get made.</h2>
         <div class="film-mantra reveal">ONE RIDER.<br>ONE ROAD.<br>ONE STORY.</div>
-        <div class="gear">
-          <!-- EDIT: gear list. Update as the kit changes. -->
-          <div class="gear-row">
-            <div><div class="g-name">Sony ZV-E10</div><div class="g-sub">Tamron 20–40mm · Sigma 16mm</div></div>
-            <div class="g-role">The cinematic camera — interviews, landscapes and the frames that carry the story.</div>
-          </div>
-          <div class="gear-row">
-            <div><div class="g-name">DJI Osmo Action 6</div><div class="g-sub">Action camera</div></div>
-            <div class="g-role">Helmet and motorcycle POV — you ride every kilometre first-hand.</div>
-          </div>
-          <div class="gear-row">
-            <div><div class="g-name">DJI Mini 5 Pro</div><div class="g-sub">Drone</div></div>
-            <div class="g-role">The aerial perspective — the road as the documentary sees it.</div>
-          </div>
-        </div>
+        <!-- Full kit (kept out of the spotlight): Sony ZV-E10 (Tamron 20–40mm, Sigma 16mm) · DJI Osmo Action 6 · DJI Mini 5 Pro -->
+        <p class="film-kit reveal">Camera · Action · Drone</p>
         <p class="film-outro reveal">No crew. No chase vehicle. Just the road — <b>cut into a MANASONROADS film.</b></p>
       </div>
     </section>
