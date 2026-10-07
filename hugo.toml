@@ -1,0 +1,25 @@
+baseURL = "https://jenam977-dot.github.io/manasonroads/"
+languageCode = "en-us"
+title = "MANASONROADS — Cinematic Motorcycle Travel"
+theme = ""
+
+[params]
+  youtube = "https://www.youtube.com/@ManasOnRoads"
+  instagram = ""
+  facebook = ""
+  x = ""
+  telegram = ""
+  contactEmail = ""
+  siteUrl = "https://jenam977-dot.github.io/manasonroads/"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[minify]
+  disableXML = false
+  minifyOutput = true
+
+[outputs]
+  home = ["HTML","RSS"]

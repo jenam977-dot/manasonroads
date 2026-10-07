@@ -1,0 +1,31 @@
+{{ define "main" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MANASONROADS — Cinematic Motorcycle Travel</title>
+<meta name="description" content="MANASONROADS — cinematic motorcycle journeys, travel documentaries and road stories from India. The road is the story.">
+<meta name="theme-color" content="#0b0d11">
+<link rel="canonical" href="{{ .Site.BaseURL }}">
+<meta property="og:title" content="MANASONROADS — Cinematic Motorcycle Travel">
+<meta property="og:description" content="Cinematic motorcycle journeys, travel documentaries and road stories from India. The road is the story.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ .Site.BaseURL }}">
+<meta property="og:image" content="{{ .Site.BaseURL }}assets/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="{{ .Site.BaseURL }}assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"MANASONROADS","alternateName":"ManasOnRoads","url":"{{ .Site.BaseURL }}","description":"Cinematic motorcycle journeys, travel documentaries and road stories from India.","publisher":{"@type":"Person","name":"Manas","sameAs":["https://www.youtube.com/@ManasOnRoads"]}}
+</script>
+<link rel="stylesheet" href="{{ .Site.BaseURL }}css/main.css">
+</head>
+<body>
+{{ .Content | safeHTML }}
+<script src="{{ .Site.BaseURL }}js/main.js"></script>
+</body>
+</html>
+{{ end }}

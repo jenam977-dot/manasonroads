@@ -1,0 +1,29 @@
+{{ define "main" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ .Title }} — MANASONROADS</title>
+<meta name="description" content="{{ .Description | default "Travel stories and motorcycle journeys" }}">
+<link rel="stylesheet" href="{{ .Site.BaseURL }}css/main.css">
+</head>
+<body>
+<div class="grain"></div>
+<nav class="nav"><div class="container nav-inner"><a href="{{ .Site.BaseURL }}" class="logo"><img src="{{ .Site.BaseURL }}assets/logo.png"><span>MANAS</span>ONROADS</a><ul class="nav-links"><li><a href="{{ .Site.BaseURL }}">Home</a></li><li><a href="{{ .Site.BaseURL }}blog/">Blog</a></li></ul></div></nav>
+<main class="container" style="padding-top:120px">
+<h1>{{ .Title }}</h1>
+{{ .Content | safeHTML }}
+<div class="blog-list">
+{{ range .Pages }}
+<article style="margin:40px 0;border-bottom:1px solid rgba(244,241,232,.1);padding-bottom:20px">
+<h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+<p style="color:var(--muted);font-size:13px">{{ .Date.Format "Jan 2, 2006" }} • {{ .ReadingTime }} min read</p>
+<p>{{ .Description | default .Summary }}</p>
+</article>
+{{ end }}
+</div>
+</main>
+</body>
+</html>
+{{ end }}

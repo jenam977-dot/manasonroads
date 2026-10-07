@@ -1,0 +1,31 @@
+{{ define "main" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ .Title }} — MANASONROADS</title>
+<meta name="description" content="{{ .Description | default .Summary }}">
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:description" content="{{ .Description | default .Summary }}">
+<meta property="og:image" content="{{ with .Params.featured }}{{ .Site.BaseURL }}assets/{{ . }}{{ end }}">
+<link rel="stylesheet" href="{{ .Site.BaseURL }}css/main.css">
+</head>
+<body>
+<div class="grain"></div>
+<nav class="nav"><div class="container nav-inner"><a href="{{ .Site.BaseURL }}" class="logo"><img src="{{ .Site.BaseURL }}assets/logo.png"><span>MANAS</span>ONROADS</a></div></nav>
+<main class="container" style="padding-top:120px;max-width:800px">
+<article>
+<h1>{{ .Title }}</h1>
+<p style="color:var(--muted);font-size:13px">{{ .Date.Format "Jan 2, 2006" }} • {{ .ReadingTime }} min read</p>
+{{ if .Params.featured }}<img src="{{ .Site.BaseURL }}assets/{{ .Params.featured }}" alt="" style="border-radius:12px;margin:20px 0">{{ end }}
+{{ .Content | safeHTML }}
+<div style="margin-top:40px;padding-top:20px;border-top:1px solid rgba(244,241,232,.1)">
+{{ with .PrevInSection }}<a href="{{ .Permalink }}">← {{ .Title }}</a>{{ end }}
+{{ with .NextInSection }}<a href="{{ .Permalink }}" style="float:right">{{ .Title }} →</a>{{ end }}
+</div>
+</article>
+</main>
+</body>
+</html>
+{{ end }}
